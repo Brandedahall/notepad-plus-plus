@@ -2331,9 +2331,9 @@ void Notepad_plus::addHotSpot()
 	// must have special processing here, all other lexers are fine with INDIC1_MASK (7th bit)
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
-	if (type == L_TEXT) //detect plain text type and reestablish styling
+	if (type == L_TEXT)
 	{
-		_pEditView->execute(SCI_STARTSTYLING, startPos, endPos); 
+		_pEditView->execute(SCI_STARTSTYLING, startPos, endPos);
 		_pEditView->execute(SCI_SETSTYLING, endPos - startPos, static_cast<unsigned char>(STYLE_DEFAULT));
 
 	}
@@ -5586,39 +5586,39 @@ void Notepad_plus::launchFileSwitcherPanel()
 {
 	if (!_pFileSwitcherPanel)
 	{
-		_pFileSwitcherPanel = new VerticalFileSwitcher;
-		HIMAGELIST hImgLst = _docTabIconList.getHandle();
-		_pFileSwitcherPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
+		//_pFileSwitcherPanel = new VerticalFileSwitcher;
+		//HIMAGELIST hImgLst = _docTabIconList.getHandle();
+		//_pFileSwitcherPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
 
-		tTbData	data = { 0 };
-		_pFileSwitcherPanel->create(&data);
+		//tTbData	data = { 0 };
+		//_pFileSwitcherPanel->create(&data);
 
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
-		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCSWITCHER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+		//::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, reinterpret_cast<LPARAM>(_pFileSwitcherPanel->getHSelf()));
+		//// define the default docking behaviour
+		//data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDR_DOCSWITCHER_ICO), IMAGE_ICON, 14, 14, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		//data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
-		// the dlgDlg should be the index of funcItem where the current function pointer is
-		// in this case is DOCKABLE_DEMO_INDEX
-		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_FILESWITCHER_PANEL;
+		//// the dlgDlg should be the index of funcItem where the current function pointer is
+		//// in this case is DOCKABLE_DEMO_INDEX
+		//// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		//data.dlgID = IDM_VIEW_FILESWITCHER_PANEL;
 
-		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
-		static TCHAR title[32];
-		if (title_temp.length() < 32)
-		{
-			lstrcpy(title, title_temp.c_str());
-			data.pszName = title;
-		}
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
+		//NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		//generic_string title_temp = pNativeSpeaker->getAttrNameStr(FS_PROJECTPANELTITLE, "DocSwitcher", "PanelTitle");
+		//static TCHAR title[32];
+		//if (title_temp.length() < 32)
+		//{
+		//	lstrcpy(title, title_temp.c_str());
+		//	data.pszName = title;
+		//}
+		//::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, reinterpret_cast<LPARAM>(&data));
 
-		COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
-		COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
+		//COLORREF fgColor = (NppParameters::getInstance())->getCurrentDefaultFgColor();
+		//COLORREF bgColor = (NppParameters::getInstance())->getCurrentDefaultBgColor();
 
-		_pFileSwitcherPanel->setBackgroundColor(bgColor);
-		_pFileSwitcherPanel->setForegroundColor(fgColor);
+		//_pFileSwitcherPanel->setBackgroundColor(bgColor);
+		//_pFileSwitcherPanel->setForegroundColor(fgColor);
 	}
 	_pFileSwitcherPanel->display();
 }
